@@ -1,4 +1,9 @@
 <html>
 	<head><title>Procuraga</title></head>
-	<body> Hello asdf </body>
+	<body>
+		<h1> Activities from Student Journal </h1>
+		{% for data in activities %}
+			{{data.activity}} <br/>
+		{% endfor %}
+	</body>
 </html>
