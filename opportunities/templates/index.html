@@ -1,17 +1,18 @@
-<html ng-app>
+<html ng-app="Procuraga">
 	<head>
 		<title>Procuraga</title>
 		{% load staticfiles %}
 		<script type="text/javascript" src="{% static "lib/angularjs/angular.min.js" %}"></script>
+		<script type="text/javascript" src="{% static "src/js/procuraga.js" %}"></script>
+		<script type="text/javascript" src="{% static "src/js/opportunities.js" %}"></script>
 	</head>
 	<body>
-		<h1> Activities from Student Journal </h1>
-		{% for data in activities %}
-			{{data.activity}} <br/>
-		{% endfor %}
+		<div ng-controller="OpportunitiesCtrl as opp">
+			<h1> Activities from Student Journal </h1>
 
-		{% verbatim %}
-			{{ 'asdf' }}
-		{% endverbatim %}
+			<span ng-repeat="activity in opp.activities">
+				{[ activity.activity ]} <br/>
+			</span>
+		</div>
 	</body>
 </html>
