@@ -1,9 +1,17 @@
-<html>
-	<head><title>Procuraga</title></head>
+<html ng-app>
+	<head>
+		<title>Procuraga</title>
+		{% load staticfiles %}
+		<script type="text/javascript" src="{% static "lib/angularjs/angular.min.js" %}"></script>
+	</head>
 	<body>
 		<h1> Activities from Student Journal </h1>
 		{% for data in activities %}
 			{{data.activity}} <br/>
 		{% endfor %}
+
+		{% verbatim %}
+			{{ 'asdf' }}
+		{% endverbatim %}
 	</body>
 </html>
