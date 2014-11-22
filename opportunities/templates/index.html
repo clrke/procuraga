@@ -1,23 +1,26 @@
-<html ng-app="Procuraga">
-	<head>
-		<title>Procuraga</title>
-		{% load staticfiles %}
-		<link rel="shortcut icon" href="{% static "src/img/logo.png" %}">
+{% extends "master.html" %}
 
-		<script type="text/javascript" src="{% static "lib/angularjs/angular.min.js" %}"></script>
-		<script type="text/javascript" src="{% static "src/js/procuraga.js" %}"></script>
-		<script type="text/javascript" src="{% static "src/js/opportunities.js" %}"></script>
-	</head>
-	<body>
-		<div ng-controller="OpportunitiesCtrl as opp">
-			<img src="{% static "src/img/logo.png" %}">
-			<img src="{% static "src/img/title.png" %}">
+{% load staticfiles %}
 
-			<h1> Activities from Student Journal</h1>
+{% block title %}
+	- Sample Page
+{% endblock %}
 
-			<span ng-repeat="activity in opp.activities">
-				{[ activity.activity ]} <br/>
-			</span>
-		</div>
-	</body>
-</html>
+{% block statics %}
+	<script type="text/javascript" src="{% static "lib/angularjs/angular.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "src/js/procuraga.js" %}"></script>
+	<script type="text/javascript" src="{% static "src/js/opportunities.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+	<div ng-controller="OpportunitiesCtrl as opp">
+		<img src="{% static "src/img/logo.png" %}">
+		<img src="{% static "src/img/title.png" %}">
+
+		<h1> Activities from Student Journal</h1>
+
+		<span ng-repeat="activity in opp.activities">
+			{[ activity.activity ]} <br/>
+		</span>
+	</div>
+{% endblock %}
