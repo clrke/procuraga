@@ -5,7 +5,10 @@
       var opp;
       opp = this;
       $http.get('/api/activities').success(function(data) {
-        return opp.activities = data.activities;
+        return opp.awards = data.awards;
+      });
+      $http.get('/api/bids').success(function(data) {
+        return opp.bids = data.bids;
       });
       return "of the jedi";
     }

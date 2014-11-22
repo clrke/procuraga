@@ -4,7 +4,11 @@ angular.module 'Procuraga'
 
 		$http.get '/api/activities'
 			.success (data) ->
-				opp.activities = data.activities
+				opp.awards = data.awards
+
+		$http.get '/api/bids'
+			.success (data) ->
+				opp.bids = data.bids
 
 		"of the jedi"
 	]
