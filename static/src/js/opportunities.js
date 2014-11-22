@@ -10,7 +10,6 @@
       $http.get('/api/bids').success(function(data) {
         return opp.bids = data.bids;
       });
-
       $http.get('/api/pperunit').success(function(data) {
         return opp.pperunit = data.pperunit;
       });
