@@ -17,5 +17,5 @@ def bids(request):
 
 def pperunit(request):
 	pperunit = requests.get('http://philgeps.cloudapp.net:5000/api/action/datastore_search_sql?sql='+
-		query.pperunit('daa80cd8-da5d-4b9d-bb6d-217a360ff7c1','2009',5)).json()
+		query.pperunit('daa80cd8-da5d-4b9d-bb6d-217a360ff7c1','2009','1000')).json()
 	return compact("pperunit")
