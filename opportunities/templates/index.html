@@ -2,13 +2,18 @@
 	<head>
 		<title>Procuraga</title>
 		{% load staticfiles %}
+		<link rel="shortcut icon" href="{% static "src/img/logo.png" %}">
+
 		<script type="text/javascript" src="{% static "lib/angularjs/angular.min.js" %}"></script>
 		<script type="text/javascript" src="{% static "src/js/procuraga.js" %}"></script>
 		<script type="text/javascript" src="{% static "src/js/opportunities.js" %}"></script>
 	</head>
 	<body>
 		<div ng-controller="OpportunitiesCtrl as opp">
-			<h1> Activities from Student Journal </h1>
+			<img src="{% static "src/img/logo.png" %}">
+			<img src="{% static "src/img/title.png" %}">
+
+			<h1> Activities from Student Journal</h1>
 
 			<span ng-repeat="activity in opp.activities">
 				{[ activity.activity ]} <br/>
