@@ -1,0 +1,16 @@
+{% extends "master.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+	- Sample Page
+{% endblock %}
+
+{% block statics %}
+	<script type="text/javascript" src="{% static "lib/angularjs/angular.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "src/js/procuraga.js" %}"></script>
+	<script type="text/javascript" src="{% static "src/js/opportunities.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+{% endblock %}
