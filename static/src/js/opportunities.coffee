@@ -10,5 +10,9 @@ angular.module 'Procuraga'
 			.success (data) ->
 				opp.bids = data.bids
 
+		$http.get '/api/pperunit'
+			.success (data) ->
+				opp.pperunit= data.pperunit
+
 		"of the jedi"
 	]
