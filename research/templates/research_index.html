@@ -9,8 +9,30 @@
 {% block statics %}
 	<script type="text/javascript" src="{% static "lib/angularjs/angular.min.js" %}"></script>
 	<script type="text/javascript" src="{% static "src/js/procuraga.js" %}"></script>
-	<script type="text/javascript" src="{% static "src/js/opportunities.js" %}"></script>
+	<script type="text/javascript" src="{% static "src/js/research.js" %}"></script>
 {% endblock %}
 
 {% block content %}
+	<div ng-controller="ResearchesCtrl as r">
+		<table class="table table-bordered" style="background-color: #FFF">
+			<thead>
+				<tr>
+					<th> Item Name </th>
+					<th> Minimum </th>
+					<th> Maximum </th>
+					<th> Mean </th>
+					<th> Median </th>
+					<th> Mode </th>
+				</tr>
+			</thead>
+			<tbody ng-repeat="item in r.items">
+				<td> {[ item.item_name ]} </td>
+				<td> {[ r.min(item.instances) | currency:"₱ " ]} </td>
+				<td> {[ r.max(item.instances) | currency:"₱ " ]} </td>
+				<td> {[ r.mean(item.instances) ]} </td>
+				<td> {[ r.median(item.instances) ]} </td>
+				<td> {[ r.mode(item.instances) ]} </td>
+			</tbody>
+		</table>
+	</div>
 {% endblock %}
