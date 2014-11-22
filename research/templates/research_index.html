@@ -45,8 +45,8 @@
 				<b> Page Size: </b> <input type="number" class="form-control" ng-model="r.pageSize" min="10">
 				<b style="padding-left: 20px"> Page Number: </b>
 				<button class="btn btn-info" ng-click="r.currentPage = r.currentPage-1" ng-disabled="r.currentPage == 1">&larr;</button>
-				{[ r.currentPage ]} / {[ r.ceil(r.items.length / r.pageSize) ]}
-				<button class="btn btn-info" ng-click="r.currentPage = r.currentPage+1" ng-disabled="r.currentPage == r.ceil(r.items.length / r.pageSize)">&rarr;</button>
+				{[ r.currentPage ]} / {[ r.ceil((r.items | filter: r.search).length / r.pageSize) ]}
+				<button class="btn btn-info" ng-click="r.currentPage = r.currentPage+1" ng-disabled="r.currentPage == r.ceil((r.items | filter: r.search).length / r.pageSize)">&rarr;</button>
 			</form>
 			<form class="form-group">
 				<input type="search" class="form-control" placeholder="Search" ng-model="r.search">

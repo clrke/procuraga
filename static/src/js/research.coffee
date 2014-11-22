@@ -1,5 +1,5 @@
 angular.module 'Procuraga'
-	.controller 'ResearchesCtrl', ['$http', '$scope', ($http) ->
+	.controller 'ResearchesCtrl', ['$http', '$scope', '$filter', ($http, $scope, $filter) ->
 		r = this
 
 		r.csort = 'item_name'
@@ -28,6 +28,13 @@ angular.module 'Procuraga'
 				r.currentPage = 1
 
 		r.ceil = window.Math.ceil;
+
+		$scope.$watch angular.bind(r, -> r.search),
+		(value) ->
+			if r.currentPage > r.ceil($filter('filter')(r.items, value).length / r.pageSize)
+				r.currentPage = r.ceil($filter('filter')(r.items, value).length / r.pageSize)
+			if r.ceil($filter('filter')(r.items, value).length / r.pageSize) != 0 and r.currentPage < 1
+				r.currentPage = 1
 
 		"of the jedi"
 	]
