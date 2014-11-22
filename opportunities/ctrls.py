@@ -17,7 +17,7 @@ def bids(request):
 
 def pperunit(request):
 	pperunit = requests.get('http://philgeps.cloudapp.net:5000/api/action/datastore_search_sql?sql='+
-		query.pperunit('daa80cd8-da5d-4b9d-bb6d-217a360ff7c1','2009','1000')).json()['result']['records']
+		query.pperunit('"daa80cd8-da5d-4b9d-bb6d-217a360ff7c1" as item, "baccd784-45a2-4c0c-82a6-61694cd68c9d" as bid','2009','3000')).json()['result']['records']
 
 	item_names = []
 
@@ -31,10 +31,16 @@ def pperunit(request):
 		item_count = len([item for item in pperunit if item['item_name'] == item_name])
 
 		item_budgets = [int(item['budget'])/int(item['qty']) for item in pperunit if item['item_name'] == item_name]
+
+		business_categories = []
+
+		[business_categories.append(item['business_category']) for item in pperunit if item['item_name'] == item_name and item['business_category'] not in business_categories]
+
 		minimum = min(item_budgets)
 		maximum = max(item_budgets)
 		mean = statistics.mean(item_budgets)
 		median = statistics.median(item_budgets)
+
 		try:
 			mode = statistics.mode(item_budgets)
 		except statistics.StatisticsError:
@@ -47,7 +53,8 @@ def pperunit(request):
 			"count": item_count,
 			"mean" : mean,
 			"median" : median,
-			"mode" : mode
+			"mode" : mode,
+			"business_category" : business_categories,
 		})
 
 	return compact("items")
