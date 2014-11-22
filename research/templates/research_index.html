@@ -14,56 +14,79 @@
 
 {% block content %}
 	<div ng-controller="ResearchesCtrl as r">
-		<input type="search" class="form-control" placeholder="Search" ng-model="r.search">
-		<table class="table table-bordered" style="background-color: #FFF">
-			<thead>
-				<tr>
-					<th>
-						<a href="#" ng-click="r.csort = 'item_name'; r.asc = ! r.asc">
-							Item Name
-						</a> {[ r.csort =='item_name'? (r.asc ? '^' : 'v') : '' ]}
-					</th>
-					<th>
-						<a href="#" ng-click="r.csort = 'count'; r.asc = ! r.asc">
-							Count
-						</a> {[ r.csort =='count'? (r.asc ? '^' : 'v') : '' ]}
-					</th>
-					<th>
-						<a href="#" ng-click="r.csort = 'min'; r.asc = ! r.asc">
-							Minimum
-						</a> {[ r.csort =='min'? (r.asc ? '^' : 'v') : '' ]}
-					</th>
-					<th>
-						<a href="#" ng-click="r.csort = 'max'; r.asc = ! r.asc">
-							Maximum
-						</a> {[ r.csort =='max'? (r.asc ? '^' : 'v') : '' ]}
-					</th>
-					<th>
-						<a href="#" ng-click="r.csort = 'mean'; r.asc = ! r.asc">
-							Mean
-						</a> {[ r.csort =='mean'? (r.asc ? '^' : 'v') : '' ]}
-					</th>
-					<th>
-						<a href="#" ng-click="r.csort = 'median'; r.asc = ! r.asc">
-							Median
-						</a> {[ r.csort =='median'? (r.asc ? '^' : 'v') : '' ]}
-					</th>
-					<th>
-						<a href="#" ng-click="r.csort = 'mode'; r.asc = ! r.asc">
-							Mode
-						</a> {[ r.csort =='mode'? (r.asc ? '^' : 'v') : '' ]}
-					</th>
-				</tr>
-			</thead>
-			<tbody ng-repeat="item in r.items | orderBy:r.csort:r.asc | filter: r.search">
-				<td> {[ item.item_name ]} </td>
-				<td> {[ item.count ]} </td>
-				<td> {[ item.min | currency:"₱ " ]} </td>
-				<td> {[ item.max | currency:"₱ " ]} </td>
-				<td> {[ item.mean | currency:"₱ " ]} </td>
-				<td> {[ item.median | currency:"₱ " ]} </td>
-				<td> {[ item.mode | currency:"₱ " ]} </td>
-			</tbody>
-		</table>
+		<div ng-show="r.items.length">
+			<form class="form-inline form-group">
+				<b> Page Size: </b> <input type="number" class="form-control" ng-model="r.pageSize" min="10">
+				<b style="padding-left: 20px"> Page Number: </b>
+				<button class="btn btn-info" ng-click="r.currentPage = r.currentPage-1" ng-disabled="r.currentPage == 1">&larr;</button>
+				{[ r.currentPage ]} / {[ r.ceil(r.items.length / r.pageSize) ]}
+				<button class="btn btn-info" ng-click="r.currentPage = r.currentPage+1" ng-disabled="r.currentPage == r.ceil(r.items.length / r.pageSize)">&rarr;</button>
+			</form>
+			<form class="form-group">
+				<input type="search" class="form-control" placeholder="Search" ng-model="r.search">
+			</form>
+			<div class="table-responsive">
+				<table class="table table-bordered" style="background-color: #FFF">
+					<thead>
+						<tr>
+							<th>
+								<a href="#" ng-click="r.csort = 'item_name'; r.asc = ! r.asc">
+									Item Name
+								</a>
+								<small> {[ r.csort =='item_name'? (r.asc ? '▲' : '▼') : '' ]} </small>
+							</th>
+							<th>
+								<a href="#" ng-click="r.csort = 'count'; r.asc = ! r.asc">
+									Count
+								</a>
+								<small> {[ r.csort =='count'? (r.asc ? '▲' : '▼') : '' ]} </small>
+							</th>
+							<th>
+								<a href="#" ng-click="r.csort = 'min'; r.asc = ! r.asc">
+									Minimum
+								</a>
+								<small> {[ r.csort =='min'? (r.asc ? '▲' : '▼') : '' ]} </small>
+							</th>
+							<th>
+								<a href="#" ng-click="r.csort = 'max'; r.asc = ! r.asc">
+									Maximum
+								</a>
+								<small> {[ r.csort =='max'? (r.asc ? '▲' : '▼') : '' ]} </small>
+							</th>
+							<th>
+								<a href="#" ng-click="r.csort = 'mean'; r.asc = ! r.asc">
+									Mean
+								</a>
+								<small> {[ r.csort =='mean'? (r.asc ? '▲' : '▼') : '' ]} </small>
+							</th>
+							<th>
+								<a href="#" ng-click="r.csort = 'median'; r.asc = ! r.asc">
+									Median
+								</a>
+								<small> {[ r.csort =='median'? (r.asc ? '▲' : '▼') : '' ]} </small>
+							</th>
+							<th>
+								<a href="#" ng-click="r.csort = 'mode'; r.asc = ! r.asc">
+									Mode
+								</a>
+								<small> {[ r.csort =='mode'? (r.asc ? '▲' : '▼') : '' ]} </small>
+							</th>
+						</tr>
+					</thead>
+					<tbody ng-repeat="item in r.items | orderBy:r.csort:r.asc | filter: r.search | startFrom: (r.currentPage-1) * r.pageSize | limitTo: r.pageSize">
+						<td> {[ item.item_name ]} </td>
+						<td> {[ item.count ]} </td>
+						<td> {[ item.min | currency:"₱ " ]} </td>
+						<td> {[ item.max | currency:"₱ " ]} </td>
+						<td> {[ item.mean | currency:"₱ " ]} </td>
+						<td> {[ item.median | currency:"₱ " ]} </td>
+						<td> {[ item.mode | currency:"₱ " ]} </td>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div ng-hide="r.items.length">
+			<h1> Loading... </h1>
+		</div>
 	</div>
 {% endblock %}

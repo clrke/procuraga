@@ -5,7 +5,9 @@
       var r;
       r = this;
       r.csort = 'item_name';
-      r.asc = true;
+      r.asc = false;
+      r.pageSize = 20;
+      r.currentPage = 1;
       r.min = function(instances) {
         var instance, numbers, _i, _len;
         numbers = [];
@@ -25,10 +27,17 @@
         return Math.max.apply(null, numbers);
       };
       $http.get('/api/pperunit').success(function(data) {
-        return r.items = data.items;
+        r.items = data.items;
+        return r.currentPage = 1;
       });
+      r.ceil = window.Math.ceil;
       return "of the jedi";
     }
-  ]);
+  ]).filter('startFrom', function() {
+    return function(input, start) {
+      start = +start;
+      return input.slice(start);
+    };
+  });
 
 }).call(this);
