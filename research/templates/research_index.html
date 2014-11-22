@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block title %}
-	- Sample Page
+	- Market Research Tool
 {% endblock %}
 
 {% block statics %}
@@ -14,6 +14,32 @@
 
 {% block content %}
 	<div ng-controller="ResearchesCtrl as r">
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title" id="myModalLabel"> {[ r.shownItem.item_name ]}</h4>
+					</div>
+					<div class="modal-body">
+						<table class="table table-striped">
+							<tr>
+								<th> Bidder </th>
+								<th> Publish Date </th>
+							</tr>
+							<tr ng-repeat="bidder in r.shownItem.bidders">
+								<td> {[ bidder[0] ]} </td>
+								<td> {[ bidder[1].split("T")[0] ]} </td>
+							</tr>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div ng-show="r.items.length">
 			<form class="form-inline form-group">
 				<b> Page Size: </b> <input type="number" class="form-control" ng-model="r.pageSize" min="10">
@@ -71,6 +97,7 @@
 								</a>
 								<small> {[ r.csort =='mode'? (r.asc ? '▲' : '▼') : '' ]} </small>
 							</th>
+							<th> Actions </th>
 						</tr>
 					</thead>
 					<tbody ng-repeat="item in r.items | orderBy:r.csort:r.asc | filter: r.search | startFrom: (r.currentPage-1) * r.pageSize | limitTo: r.pageSize">
@@ -81,6 +108,14 @@
 						<td> {[ item.mean | currency:"₱ " ]} </td>
 						<td> {[ item.median | currency:"₱ " ]} </td>
 						<td> {[ item.mode | currency:"₱ " ]} </td>
+						<td>
+							<!-- Button trigger modal -->
+							<center>
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="r.shownItem=item">
+									View Bidders
+								</button>
+							</center>
+						</td>
 					</tbody>
 				</table>
 			</div>
