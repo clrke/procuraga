@@ -14,24 +14,55 @@
 
 {% block content %}
 	<div ng-controller="ResearchesCtrl as r">
+		<input type="search" class="form-control" placeholder="Search" ng-model="r.search">
 		<table class="table table-bordered" style="background-color: #FFF">
 			<thead>
 				<tr>
-					<th> Item Name </th>
-					<th> Minimum </th>
-					<th> Maximum </th>
-					<th> Mean </th>
-					<th> Median </th>
-					<th> Mode </th>
+					<th>
+						<a href="#" ng-click="r.csort = 'item_name'; r.asc = ! r.asc">
+							Item Name
+						</a> {[ r.csort =='item_name'? (r.asc ? '^' : 'v') : '' ]}
+					</th>
+					<th>
+						<a href="#" ng-click="r.csort = 'count'; r.asc = ! r.asc">
+							Count
+						</a> {[ r.csort =='count'? (r.asc ? '^' : 'v') : '' ]}
+					</th>
+					<th>
+						<a href="#" ng-click="r.csort = 'min'; r.asc = ! r.asc">
+							Minimum
+						</a> {[ r.csort =='min'? (r.asc ? '^' : 'v') : '' ]}
+					</th>
+					<th>
+						<a href="#" ng-click="r.csort = 'max'; r.asc = ! r.asc">
+							Maximum
+						</a> {[ r.csort =='max'? (r.asc ? '^' : 'v') : '' ]}
+					</th>
+					<th>
+						<a href="#" ng-click="r.csort = 'mean'; r.asc = ! r.asc">
+							Mean
+						</a> {[ r.csort =='mean'? (r.asc ? '^' : 'v') : '' ]}
+					</th>
+					<th>
+						<a href="#" ng-click="r.csort = 'median'; r.asc = ! r.asc">
+							Median
+						</a> {[ r.csort =='median'? (r.asc ? '^' : 'v') : '' ]}
+					</th>
+					<th>
+						<a href="#" ng-click="r.csort = 'mode'; r.asc = ! r.asc">
+							Mode
+						</a> {[ r.csort =='mode'? (r.asc ? '^' : 'v') : '' ]}
+					</th>
 				</tr>
 			</thead>
-			<tbody ng-repeat="item in r.items">
+			<tbody ng-repeat="item in r.items | orderBy:r.csort:r.asc | filter: r.search">
 				<td> {[ item.item_name ]} </td>
-				<td> {[ r.min(item.instances) | currency:"₱ " ]} </td>
-				<td> {[ r.max(item.instances) | currency:"₱ " ]} </td>
-				<td> {[ r.mean(item.instances) ]} </td>
-				<td> {[ r.median(item.instances) ]} </td>
-				<td> {[ r.mode(item.instances) ]} </td>
+				<td> {[ item.count ]} </td>
+				<td> {[ item.min | currency:"₱ " ]} </td>
+				<td> {[ item.max | currency:"₱ " ]} </td>
+				<td> {[ item.mean | currency:"₱ " ]} </td>
+				<td> {[ item.median | currency:"₱ " ]} </td>
+				<td> {[ item.mode | currency:"₱ " ]} </td>
 			</tbody>
 		</table>
 	</div>

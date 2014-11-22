@@ -4,49 +4,8 @@
     '$http', '$scope', function($http) {
       var r;
       r = this;
-      r.items = [
-        {
-          "item_name": "plywood",
-          "instances": [
-            {
-              "budget": 20,
-              "qty": 5
-            }, {
-              "budget": 120,
-              "qty": 5
-            }, {
-              "budget": 320,
-              "qty": 5
-            }, {
-              "budget": 420,
-              "qty": 5
-            }, {
-              "budget": 520,
-              "qty": 5
-            }
-          ]
-        }, {
-          "item_name": "something else",
-          "instances": [
-            {
-              "budget": 500,
-              "qty": 6
-            }, {
-              "budget": 1600,
-              "qty": 6
-            }, {
-              "budget": 3600,
-              "qty": 6
-            }, {
-              "budget": 4600,
-              "qty": 6
-            }, {
-              "budget": 6600,
-              "qty": 6
-            }
-          ]
-        }
-      ];
+      r.csort = 'item_name';
+      r.asc = true;
       r.min = function(instances) {
         var instance, numbers, _i, _len;
         numbers = [];
@@ -65,6 +24,9 @@
         }
         return Math.max.apply(null, numbers);
       };
+      $http.get('/api/pperunit').success(function(data) {
+        return r.items = data.items;
+      });
       return "of the jedi";
     }
   ]);
