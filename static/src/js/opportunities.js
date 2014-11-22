@@ -13,6 +13,10 @@
       $http.get('/api/pperunit').success(function(data) {
         return opp.pperunit = data.pperunit;
       });
+
+      $http.get('/api/supplier').success(function(data) {
+        return opp.supplier = data.supplier;
+      });
       return "of the jedi";
     }
   ]);

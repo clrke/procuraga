@@ -14,5 +14,7 @@ urlpatterns = patterns('',
     url(r'^api/bids$', opportunities.views.bids, name='bids'),
     url(r'^api/pperunit$',opportunities.views.pperunit, name='pperunit'),
 
+    url(r'^api/supplier$',opportunities.views.supplier, name='supplier'),
+
     url(r'^admin/', include(admin.site.urls)),
 )

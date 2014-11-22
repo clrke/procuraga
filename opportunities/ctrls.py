@@ -51,3 +51,8 @@ def pperunit(request):
 		})
 
 	return compact("items")
+
+def supplier(request):
+	supplier = requests.get('http://api.data.gov.ph/api/action/datastore_search_sql?sql='+
+		query.supplier('23de10e9-197e-4294-abd1-eba0188110cd','1000')).json()
+	return compact("supplier")
