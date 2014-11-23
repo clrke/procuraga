@@ -5,7 +5,6 @@ import opportunities.views
 import research.urls
 
 urlpatterns = patterns('',
-    # Examples:
     url(r'^$', opportunities.views.home, name='home'),
 
     url(r'^research/', include(research.urls)),
