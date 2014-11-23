@@ -43,6 +43,7 @@ def pperunit(request):
 		[
 			bidders.append({
 				"bidder": item['org_name'],
+				"item_desc": item['item_description'],
 				"date": item['publish_date'],
 				"budget": item['budget'],
 				"qty": item['qty'],
@@ -52,6 +53,7 @@ def pperunit(request):
 			for item in pperunit if item['item_name'] == item_name and
 			{
 				"bidder": item['org_name'],
+				"item_desc": item['item_description'],
 				"date": item['publish_date'],
 				"budget": item['budget'],
 				"qty": item['qty'],

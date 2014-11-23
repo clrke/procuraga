@@ -23,54 +23,63 @@
 						<h4 class="modal-title" id="myModalLabel"> {[ r.shownItem.item_name ]}</h4>
 					</div>
 					<div class="modal-body">
-						<table class="table table-striped table-bordered table-responsive">
-							<tr>
-								<th>
-									<a href="#" ng-click="r.csort2 = 'bidder'; r.asc2 = ! r.asc2">
-								 		Bidder
-								 	</a>
-									<small> {[ r.csort2 =='bidder'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
-								 </th>
-								<th>
-									<a href="#" ng-click="r.csort2 = 'date'; r.asc2 = ! r.asc2">
-								 		Publish Date
-								 	</a>
-									<small> {[ r.csort2 =='date'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
-								 </th>
-								<th>
-									<a href="#" ng-click="r.csort2 = 'budget'; r.asc2 = ! r.asc2">
-								 		Budget
-								 	</a>
-									<small> {[ r.csort2 =='budget'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
-								 </th>
-								<th>
-									<a href="#" ng-click="r.csort2 = 'qty'; r.asc2 = ! r.asc2">
-								 		 Quantity
-								 	</a>
-									<small> {[ r.csort2 =='qty'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
-								 </th>
-								<th>
-									<a href="#" ng-click="r.csort2 = 'budget_qty'; r.asc2 = ! r.asc2">
-								 		 Budget/Quantity
-								 	</a>
-									<small> {[ r.csort2 =='budget_qty'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
-								 </th>
-								<th>
-									<a href="#" ng-click="r.csort2 = 'loc'; r.asc2 = ! r.asc2">
-								 		 Location
-								 	</a>
-									<small> {[ r.csort2 =='loc'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
-								 </th>
-							</tr>
-							<tr ng-repeat="bidder in r.shownItem.bidders | orderBy:r.csort2:r.asc2">
-								<td> {[ bidder.bidder ]} </td>
-								<td> {[ bidder.date.split("T")[0] ]} </td>
-								<td> {[ bidder.budget | currency:"₱ " ]} </td>
-								<td> {[ bidder.qty ]} </td>
-								<td> {[ bidder.budget_qty | currency:"₱ " ]} </td>
-								<td> {[ bidder.loc ]} </td>
-							</tr>
-						</table>
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered">
+								<tr>
+									<th>
+										<a href="#" ng-click="r.csort2 = 'bidder'; r.asc2 = ! r.asc2">
+									 		Bidder
+									 	</a>
+										<small> {[ r.csort2 =='bidder'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
+									 </th>
+									<th>
+										<a href="#" ng-click="r.csort2 = 'item_desc'; r.asc2 = ! r.asc2">
+									 		 Description
+									 	</a>
+										<small> {[ r.csort2 =='item_desc'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
+									 </th>
+									<th>
+										<a href="#" ng-click="r.csort2 = 'date'; r.asc2 = ! r.asc2">
+									 		Publish Date
+									 	</a>
+										<small> {[ r.csort2 =='date'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
+									 </th>
+									<th>
+										<a href="#" ng-click="r.csort2 = 'budget'; r.asc2 = ! r.asc2">
+									 		Budget
+									 	</a>
+										<small> {[ r.csort2 =='budget'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
+									 </th>
+									<th>
+										<a href="#" ng-click="r.csort2 = 'qty'; r.asc2 = ! r.asc2">
+									 		 Quantity
+									 	</a>
+										<small> {[ r.csort2 =='qty'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
+									 </th>
+									<th>
+										<a href="#" ng-click="r.csort2 = 'budget_qty'; r.asc2 = ! r.asc2">
+									 		 Budget/Quantity
+									 	</a>
+										<small> {[ r.csort2 =='budget_qty'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
+									 </th>
+									<th>
+										<a href="#" ng-click="r.csort2 = 'loc'; r.asc2 = ! r.asc2">
+									 		 Location
+									 	</a>
+										<small> {[ r.csort2 =='loc'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
+									 </th>
+								</tr>
+								<tr ng-repeat="bidder in r.shownItem.bidders | orderBy:r.csort2:r.asc2">
+									<td> {[ bidder.bidder ]} </td>
+									<td> {[ bidder.item_desc ]} </td>
+									<td> {[ bidder.date.split("T")[0] ]} </td>
+									<td> {[ bidder.budget | currency:"₱ " ]} </td>
+									<td> {[ bidder.qty ]} </td>
+									<td> {[ bidder.budget_qty | currency:"₱ " ]} </td>
+									<td> {[ bidder.loc ]} </td>
+								</tr>
+							</table>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
