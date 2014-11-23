@@ -46,13 +46,16 @@ def pperunit(request):
 				"date": item['publish_date'],
 				"budget": item['budget'],
 				"qty": item['qty'],
-				"loc": "%s - %s" % (item['region'], item['province'])
+				"budget_qty": item['budget']/item['qty'],
+				"loc": "%s - %s" % (item['region'], item['province']),
 			})
 			for item in pperunit if item['item_name'] == item_name and
 			{
 				"bidder": item['org_name'],
 				"date": item['publish_date'],
 				"budget": item['budget'],
+				"qty": item['qty'],
+				"budget_qty": item['budget']/item['qty'],
 				"loc": "%s - %s" % (item['region'], item['province'])
 			} not in bidders
 		]
