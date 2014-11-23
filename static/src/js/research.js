@@ -10,7 +10,11 @@
       r.asc2 = false;
       r.pageSize = 20;
       r.currentPage = 1;
-      r.year = __year__;
+      if (typeof __year__ !== 'undefined') {
+        r.year = __year__;
+      } else {
+        r.year = null;
+      }
       r.items = [];
       r.min = function(instances) {
         var instance, numbers, _i, _len;
@@ -30,11 +34,19 @@
         }
         return Math.max.apply(null, numbers);
       };
-      $http.get('/api/pperunit?year=' + r.year).success(function(data) {
-        r.items = data.items;
-        r.currentPage = 1;
-        return r.loaded = true;
-      });
+      if (r.year !== null) {
+        $http.get('/api/pperunit?year=' + r.year).success(function(data) {
+          r.items = data.items;
+          r.currentPage = 1;
+          return r.loaded = true;
+        });
+      } else {
+        $http.get('/api/pperunit').success(function(data) {
+          r.items = data.items;
+          r.currentPage = 1;
+          return r.loaded = true;
+        });
+      }
       r.ceil = window.Math.ceil;
       $scope.$watch(angular.bind(r, function() {
         return r.search;

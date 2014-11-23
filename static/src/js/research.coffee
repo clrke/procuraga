@@ -11,7 +11,10 @@ angular.module 'Procuraga'
 		r.pageSize = 20
 		r.currentPage = 1
 
-		r.year = __year__
+		if typeof __year__ != 'undefined'
+			r.year = __year__
+		else
+			r.year = null
 
 		r.items = []
 
@@ -29,11 +32,16 @@ angular.module 'Procuraga'
 
 			return Math.max.apply null, numbers
 
-
-		$http.get('/api/pperunit?year='+r.year).success (data) ->
-			r.items = data.items
-			r.currentPage = 1
-			r.loaded = true
+		if r.year != null
+			$http.get('/api/pperunit?year='+r.year).success (data) ->
+				r.items = data.items
+				r.currentPage = 1
+				r.loaded = true
+		else
+			$http.get('/api/pperunit').success (data) ->
+				r.items = data.items
+				r.currentPage = 1
+				r.loaded = true
 
 		r.ceil = window.Math.ceil;
 

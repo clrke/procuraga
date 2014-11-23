@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block statics %}
-	<script type="text/javascript"> var __year__ = {{ year }} </script>
+	<script type="text/javascript"> {% if year != None %} var __year__ = {{ year }} {% endif %} </script>
 	<script type="text/javascript" src="{% static "lib/angularjs/angular.min.js" %}"></script>
 	<script type="text/javascript" src="{% static "src/js/procuraga.js" %}"></script>
 	<script type="text/javascript" src="{% static "src/js/research.js" %}"></script>
