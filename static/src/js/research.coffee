@@ -5,11 +5,15 @@ angular.module 'Procuraga'
 		r.csort = 'item_name'
 		r.asc = false
 
-		r.csort = 'bidder'
-		r.asc = false
+		r.csort2 = 'bidder'
+		r.asc2 = false
 
 		r.pageSize = 20
 		r.currentPage = 1
+
+		r.year = __year__
+
+		r.items = []
 
 		r.min = (instances) ->
 			numbers = []
@@ -25,10 +29,11 @@ angular.module 'Procuraga'
 
 			return Math.max.apply null, numbers
 
-		$http.get '/api/pperunit'
-			.success (data) ->
-				r.items = data.items
-				r.currentPage = 1
+
+		$http.get('/api/pperunit?year='+r.year).success (data) ->
+			r.items = data.items
+			r.currentPage = 1
+			r.loaded = true
 
 		r.ceil = window.Math.ceil;
 

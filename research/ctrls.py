@@ -1,2 +1,5 @@
+from procuraga.shortcuts import compact
+
 def home(request):
-	return {}
+	year = request.GET['year'] if 'year' in request.GET else None
+	return compact("year")

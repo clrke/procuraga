@@ -7,13 +7,30 @@
 {% endblock %}
 
 {% block statics %}
+	<script type="text/javascript"> var __year__ = {{ year }} </script>
 	<script type="text/javascript" src="{% static "lib/angularjs/angular.min.js" %}"></script>
 	<script type="text/javascript" src="{% static "src/js/procuraga.js" %}"></script>
 	<script type="text/javascript" src="{% static "src/js/research.js" %}"></script>
 {% endblock %}
 
 {% block content %}
-	<div ng-controller="ResearchesCtrl as r">
+	<div ng-controller="ResearchesCtrl as r"  ng-init="r.year = {{ year }}">
+		<div ng-hide=" ! r.loaded || r.items.length !== 0">
+			<h1> No data retrived. Filter using another year. </h1>
+
+			<form class="form-inline" action="/research" method="get">
+				<div class="form-group">
+					<b> Year: </b>
+					<input type="number" ng-model="r.year" min="1990" class="form-control" name="year">
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary"> Filter </button>
+				</div>
+			</form>
+		</div>
+		<div ng-show="r.items.length === 0 && ! r.loaded">
+			<h1> Loading... </h1>
+		</div>
 		<!-- Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
@@ -88,17 +105,28 @@
 			</div>
 		</div>
 		<div ng-show="r.items.length">
-			<form class="form-inline form-group">
-				<b> Page Size: </b> <input type="number" class="form-control" ng-model="r.pageSize" min="10">
-				<b style="padding-left: 20px"> Page Number: </b>
-				<button class="btn btn-info" ng-click="r.currentPage = r.currentPage-1" ng-disabled="r.currentPage == 1">&larr;</button>
-				{[ r.currentPage ]} / {[ r.ceil((r.items | filter: r.search).length / r.pageSize) ]}
-				<button class="btn btn-info" ng-click="r.currentPage = r.currentPage+1" ng-disabled="r.currentPage == r.ceil((r.items | filter: r.search).length / r.pageSize)">&rarr;</button>
+			<form class="form-inline form-group" action="/research" method="get">
+				<div class="form-group">
+					<b> Page Size: </b> <input type="number" class="form-control" ng-model="r.pageSize" min="10">
+				</div>
+				<div class="form-group" style="padding-left: 20px">
+					<b> Page Number: </b>
+					<button class="btn btn-info" ng-click="r.currentPage = r.currentPage-1" ng-disabled="r.currentPage == 1">&larr;</button>
+					{[ r.currentPage ]} / {[ r.ceil((r.items | filter: r.search).length / r.pageSize) ]}
+					<button class="btn btn-info" ng-click="r.currentPage = r.currentPage+1" ng-disabled="r.currentPage == r.ceil((r.items | filter: r.search).length / r.pageSize)">&rarr;</button>
+				</div>
+				<div class="form-group" style="padding-left: 20px">
+					<b> Year: </b>
+					<input type="number" ng-model="r.year" min="1990" class="form-control" name="year">
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary"> Filter </button>
+				</div>
 			</form>
 			<form class="form-group">
 				<input type="search" class="form-control" placeholder="Search" ng-model="r.search">
 			</form>
-			<div class="table-responsive">
+			<di` class="table-responsive">
 				<table class="table table-bordered" style="background-color: #FFF">
 					<thead>
 						<tr>
@@ -173,9 +201,6 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
-		<div ng-hide="r.items.length">
-			<h1> Loading... </h1>
 		</div>
 	</div>
 {% endblock %}

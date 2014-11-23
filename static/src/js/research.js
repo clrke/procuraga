@@ -6,10 +6,12 @@
       r = this;
       r.csort = 'item_name';
       r.asc = false;
-      r.csort = 'bidder';
-      r.asc = false;
+      r.csort2 = 'bidder';
+      r.asc2 = false;
       r.pageSize = 20;
       r.currentPage = 1;
+      r.year = __year__;
+      r.items = [];
       r.min = function(instances) {
         var instance, numbers, _i, _len;
         numbers = [];
@@ -28,9 +30,10 @@
         }
         return Math.max.apply(null, numbers);
       };
-      $http.get('/api/pperunit').success(function(data) {
+      $http.get('/api/pperunit?year=' + r.year).success(function(data) {
         r.items = data.items;
-        return r.currentPage = 1;
+        r.currentPage = 1;
+        return r.loaded = true;
       });
       r.ceil = window.Math.ceil;
       $scope.$watch(angular.bind(r, function() {

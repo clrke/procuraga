@@ -88,4 +88,6 @@ def pperunit(request):
 			"bidders": bidders
 		})
 
+	if year is None: year = 2009
+
 	return compact("items")
