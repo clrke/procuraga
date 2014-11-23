@@ -15,19 +15,27 @@
 {% block content %}
 	<div class="row">
 		<div class="col-xs-6">
-			<button class="btn btn-primary btn-block" style="height:300px; font-size: 30px;">Market Research Tool</button>
+			<form action="/research" method="get">
+				<button type="submit" class="btn btn-primary btn-block" style="height:300px; font-size: 30px;">Market Research Tool</button>
+			</form>
 		</div>
 		<div class="col-xs-6">
-			<button class="btn btn-warning btn-block" style="height:300px; font-size: 30px;">Feedback Mechanism</button>
+			<form action="#" method="get">
+				<button type="submit" class="btn btn-warning btn-block" style="height:300px; font-size: 30px;">Feedback Mechanism</button>
+			</form>
 		</div>
 	</div>
 	<br>
 	<div class="row">
 		<div class="col-xs-6">
-			<button class="btn btn-success btn-block" style="height:300px; font-size: 30px;">Business Opportunity Guide</button>
+			<form action="#" method="get">
+				<button type="submit" class="btn btn-success btn-block" style="height:300px; font-size: 30px;">Business Opportunity Guide</button>
+			</form>
 		</div>
 		<div class="col-xs-6">
-			<button class="btn btn-danger btn-block" style="height:300px; font-size: 30px;">Track Record</button>
+			<form action="#" method="get">
+				<button type="submit" class="btn btn-danger btn-block" style="height:300px; font-size: 30px;">Track Record</button>
+			</form>
 		</div>
 	</div>
 {% endblock %}
