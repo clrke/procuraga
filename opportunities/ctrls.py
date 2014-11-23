@@ -32,11 +32,30 @@ def pperunit(request):
 	for item_name in item_names:
 		item_budgets = [int(item['budget'])/int(item['qty']) for item in pperunit if item['item_name'] == item_name]
 
+		item_qties = []
+		[item_qties.append(item['qty']) for item in pperunit if item['item_name'] == item_name]
+		item_qty = sum(item_qties)
+
 		business_categories = []
 		[business_categories.append(item['business_category']) for item in pperunit if item['item_name'] == item_name and item['business_category'] not in business_categories]
 
 		bidders = []
-		[bidders.append([item['org_name'], item['publish_date']]) for item in pperunit if item['item_name'] == item_name and [item['org_name'], item['publish_date']] not in bidders]
+		[
+			bidders.append({
+				"bidder": item['org_name'],
+				"date": item['publish_date'],
+				"budget": item['budget'],
+				"qty": item['qty'],
+				"loc": "%s - %s" % (item['region'], item['province'])
+			})
+			for item in pperunit if item['item_name'] == item_name and
+			{
+				"bidder": item['org_name'],
+				"date": item['publish_date'],
+				"budget": item['budget'],
+				"loc": "%s - %s" % (item['region'], item['province'])
+			} not in bidders
+		]
 
 		minimum = min(item_budgets)
 		maximum = max(item_budgets)
@@ -53,6 +72,7 @@ def pperunit(request):
 			"min": minimum,
 			"max": maximum,
 			"count": len(bidders),
+			"qty" : item_qty,
 			"mean" : mean,
 			"median" : median,
 			"mode" : mode,

@@ -5,6 +5,9 @@ angular.module 'Procuraga'
 		r.csort = 'item_name'
 		r.asc = false
 
+		r.csort = 'bidder'
+		r.asc = false
+
 		r.pageSize = 20
 		r.currentPage = 1
 

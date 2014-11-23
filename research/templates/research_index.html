@@ -16,21 +16,52 @@
 	<div ng-controller="ResearchesCtrl as r">
 		<!-- Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 						<h4 class="modal-title" id="myModalLabel"> {[ r.shownItem.item_name ]}</h4>
 					</div>
 					<div class="modal-body">
-						<table class="table table-striped">
+						<table class="table table-striped table-bordered">
 							<tr>
-								<th> Bidder </th>
-								<th> Publish Date </th>
+								<th>
+									<a href="#" ng-click="r.csort2 = 'bidder'; r.asc2 = ! r.asc2">
+								 		Bidder
+								 	</a>
+									<small> {[ r.csort2 =='bidder'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
+								 </th>
+								<th>
+									<a href="#" ng-click="r.csort2 = 'date'; r.asc2 = ! r.asc2">
+								 		Publish Date
+								 	</a>
+									<small> {[ r.csort2 =='date'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
+								 </th>
+								<th>
+									<a href="#" ng-click="r.csort2 = 'budget'; r.asc2 = ! r.asc2">
+								 		Budget
+								 	</a>
+									<small> {[ r.csort2 =='budget'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
+								 </th>
+								<th>
+									<a href="#" ng-click="r.csort2 = 'qty'; r.asc2 = ! r.asc2">
+								 		 Quantity
+								 	</a>
+									<small> {[ r.csort2 =='qty'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
+								 </th>
+								<th>
+									<a href="#" ng-click="r.csort2 = 'loc'; r.asc2 = ! r.asc2">
+								 		 Location
+								 	</a>
+									<small> {[ r.csort2 =='loc'? (r.asc2 ? '▲' : '▼') : '' ]} </small>
+								 </th>
 							</tr>
-							<tr ng-repeat="bidder in r.shownItem.bidders">
-								<td> {[ bidder[0] ]} </td>
-								<td> {[ bidder[1].split("T")[0] ]} </td>
+							<tr ng-repeat="bidder in r.shownItem.bidders | orderBy:r.csort2:r.asc2">
+								<td> {[ bidder.bidder ]} </td>
+								<td> {[ bidder.date.split("T")[0] ]} </td>
+								<td> {[ bidder.budget | currency:"₱ " ]} </td>
+								<td> {[ bidder.qty ]} </td>
+								<td> {[ bidder.loc ]} </td>
 							</tr>
 						</table>
 					</div>
@@ -63,9 +94,15 @@
 							</th>
 							<th>
 								<a href="#" ng-click="r.csort = 'count'; r.asc = ! r.asc">
-									Count
+									Awards Count
 								</a>
 								<small> {[ r.csort =='count'? (r.asc ? '▲' : '▼') : '' ]} </small>
+							</th>
+							<th>
+								<a href="#" ng-click="r.csort = 'qty'; r.asc = ! r.asc">
+									Quantity
+								</a>
+								<small> {[ r.csort =='qty'? (r.asc ? '▲' : '▼') : '' ]} </small>
 							</th>
 							<th>
 								<a href="#" ng-click="r.csort = 'min'; r.asc = ! r.asc">
@@ -103,6 +140,7 @@
 					<tbody ng-repeat="item in r.items | orderBy:r.csort:r.asc | filter: r.search | startFrom: (r.currentPage-1) * r.pageSize | limitTo: r.pageSize">
 						<td> {[ item.item_name ]} </td>
 						<td> {[ item.count ]} </td>
+						<td> {[ item.qty ]} </td>
 						<td> {[ item.min | currency:"₱ " ]} </td>
 						<td> {[ item.max | currency:"₱ " ]} </td>
 						<td> {[ item.mean | currency:"₱ " ]} </td>
@@ -111,8 +149,8 @@
 						<td>
 							<!-- Button trigger modal -->
 							<center>
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="r.shownItem=item">
-									View Bidders
+								<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" ng-click="r.shownItem=item">
+									View Awarded Bids
 								</button>
 							</center>
 						</td>
