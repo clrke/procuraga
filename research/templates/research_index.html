@@ -111,9 +111,9 @@
 				</div>
 				<div class="form-group" style="padding-left: 20px">
 					<b> Page Number: </b>
-					<button class="btn btn-info" ng-click="r.currentPage = r.currentPage-1" ng-disabled="r.currentPage == 1">&larr;</button>
+					<button type="button" class="btn btn-info" ng-click="r.currentPage = r.currentPage-1" ng-disabled="r.currentPage == 1">&larr;</button>
 					{[ r.currentPage ]} / {[ r.ceil((r.items | filter: r.search).length / r.pageSize) ]}
-					<button class="btn btn-info" ng-click="r.currentPage = r.currentPage+1" ng-disabled="r.currentPage == r.ceil((r.items | filter: r.search).length / r.pageSize)">&rarr;</button>
+					<button type="button" class="btn btn-info" ng-click="r.currentPage = r.currentPage+1" ng-disabled="r.currentPage == r.ceil((r.items | filter: r.search).length / r.pageSize)">&rarr;</button>
 				</div>
 				<div class="form-group" style="padding-left: 20px">
 					<b> Year: </b>
