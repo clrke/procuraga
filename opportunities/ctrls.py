@@ -16,8 +16,11 @@ def bids(request):
 	return compact("bids")
 
 def pperunit(request):
+
+	year = request.GET['year'] if 'year' in request.GET else None
+
 	pperunit = requests.get('http://philgeps.cloudapp.net:5000/api/action/datastore_search_sql?sql='+
-		query.pperunit('"daa80cd8-da5d-4b9d-bb6d-217a360ff7c1" as item, "baccd784-45a2-4c0c-82a6-61694cd68c9d" as bid, "ec10e1c4-4eb3-4f29-97fe-f09ea950cdf1" as org','2009','3000')).json()['result']['records']
+		query.pperunit('"daa80cd8-da5d-4b9d-bb6d-217a360ff7c1" as item, "baccd784-45a2-4c0c-82a6-61694cd68c9d" as bid, "ec10e1c4-4eb3-4f29-97fe-f09ea950cdf1" as org',year)).json()['result']['records']
 
 	# return compact("pperunit")
 
