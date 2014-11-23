@@ -3,6 +3,7 @@ from procuraga.shortcuts import compact
 from procuraga import query
 from urllib.parse import urlparse
 import statistics
+import inflect
 
 def awards(request):
 	award = requests.get('http://philgeps.cloudapp.net:5000/api/action/datastore_search_sql?sql='+
@@ -16,6 +17,8 @@ def bids(request):
 	return compact("bids")
 
 def pperunit(request):
+
+	p = inflect.engine()
 
 	year = request.GET['year'] if 'year' in request.GET else None
 
@@ -49,7 +52,8 @@ def pperunit(request):
 				"item_desc": item['item_description'],
 				"date": item['publish_date'],
 				"budget": item['budget'],
-				"qty": item['qty'],
+				"qty": str(item['qty']) + " " + p.plural(item['uom'], item['qty']).lower(),
+				"uom": item['uom'],
 				"budget_qty": item['budget']/item['qty'],
 				"loc": "%s - %s" % (item['region'], item['province']),
 			})
@@ -59,7 +63,8 @@ def pperunit(request):
 				"item_desc": item['item_description'],
 				"date": item['publish_date'],
 				"budget": item['budget'],
-				"qty": item['qty'],
+				"qty": str(item['qty']) + " " + p.plural(item['uom'], item['qty']).lower(),
+				"uom": item['uom'],
 				"budget_qty": item['budget']/item['qty'],
 				"loc": "%s - %s" % (item['region'], item['province'])
 			} not in bidders
@@ -80,7 +85,7 @@ def pperunit(request):
 			"min": minimum,
 			"max": maximum,
 			"count": len(bidders),
-			"qty" : item_qty,
+			"qty" : str(item_qty) + " " + p.plural(bidders[0]['uom'].lower(), item_qty),
 			"mean" : mean,
 			"median" : median,
 			"mode" : mode,

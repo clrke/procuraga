@@ -6,6 +6,6 @@ def year(table_name, year, number=-1):
 
 def pperunit(table_name, year):
 	if year is None:
-		return "SELECT org_name, publish_date, business_category, item_name, item_description, budget,qty,region, province FROM {0} WHERE qty <> 0 and budget <> 0 and bid.ref_id = item.ref_id and org.org_id = bid.client_agency_org_id ORDER BY publish_date desc LIMIT 1000".format(table_name)
+		return "SELECT org_name, publish_date, business_category, item_name, item_description, budget,qty,uom,region, province FROM {0} WHERE qty <> 0 and budget <> 0 and bid.ref_id = item.ref_id and org.org_id = bid.client_agency_org_id ORDER BY publish_date desc LIMIT 1000".format(table_name)
 	else:
-		return "SELECT org_name, publish_date, business_category, item_name, item_description, budget,qty,region, province FROM {0} WHERE qty <> 0 and budget <> 0 and publish_date >= '{1}-01-01' and publish_date <= '{1}-12-31' and bid.ref_id = item.ref_id and org.org_id = bid.client_agency_org_id ORDER BY publish_date desc".format(table_name,year)
+		return "SELECT org_name, publish_date, business_category, item_name, item_description, budget,qty,uom,region, province FROM {0} WHERE qty <> 0 and budget <> 0 and publish_date >= '{1}-01-01' and publish_date <= '{1}-12-31' and bid.ref_id = item.ref_id and org.org_id = bid.client_agency_org_id ORDER BY publish_date desc".format(table_name,year)
